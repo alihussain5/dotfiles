@@ -6,37 +6,29 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 EDITOR=nvim
-# export PATH="$HOME/.rbenv/bin:$PATH"
-# eval "$(rbenv init -)"
-
 
 export ZSH="$HOME/.oh-my-zsh"
 zstyle ':omz:update' mode auto      # update automatically without asking
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#666666"
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
 
-set -o vi
-plugins=(git zsh-autosuggestions navi zsh-vi-mode )
+# Plugins
+
+zplug "jeffreytse/zsh-vi-mode"
+zplug "plugins/git",   from:oh-my-zsh
+zplug "zsh-users/zsh-autosuggestions"
+zplug "denisidoro/navi", use:"shell/*.zsh", defer:2
 
 source $ZSH/oh-my-zsh.sh
-
-# zvm_after_init_commands+=(zsh-autosuggestions navi)
-
-# function zvm_after_lazy_keybindings() {
-#   bindkey -M vicmd 's' your_normal_widget
-#   bindkey -M visual 'n' your_visual_widget
-# }
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 
 bindkey '^ ' autosuggest-accept
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
 
 # User configuration
 
@@ -45,7 +37,6 @@ alias vim=nvim
 alias tf=terraform
 alias zap='gaa;gc -m "⚡️";gp'
 alias lg='lazygit'
-alias todo='todo.sh'
 
 bindkey "\e[1~" beginning-of-line
 bindkey "\e[4~" end-of-line
@@ -85,27 +76,7 @@ export NVM_DIR="$HOME/.nvm"
 
 gitbranches () {
   git for-each-ref --sort='-committerdate:iso8601' --format=' %(committerdate:iso8601)%09%(refname)' refs/heads
-}
 
-aws_login () {
-  eval "$(~/hummingbird-infra/scripts/login ali $1)"
-}
-
-assume_sandbox () {
-  eval $(~/hummingbird-infra/scripts/assume-role  arn:aws:iam::540894806611:role/StagingAdmin)
-}
-
-ecr_login () {
-  aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 540894806611.dkr.ecr.us-west-2.amazonaws.com
-}
-
-docker_tag () {
-   docker tag $1:latest 540894806611.dkr.ecr.us-west-2.amazonaws.com/$1:latest
-}
-
-if [ -e /Users/ali/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/ali/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 eval "$(direnv hook zsh)"
@@ -129,29 +100,3 @@ function zvm_after_lazy_keybindings() {
   zvm_bindkey vicmd '^G' _navi_widget
   zvm_bindkey viins '^ ' autosuggest-accept
 }
-
-cd ~/hummingbird-rails
-eval export PATH="/Users/ali/.rbenv/shims:${PATH}"
-export RBENV_SHELL=zsh
-# source '/opt/homebrew/Cellar/rbenv/1.2.0/libexec/../completions/rbenv.zsh'
-# command rbenv rehash 2>/dev/null
-# rbenv() {
-#   local command
-#   command="${1:-}"
-#   if [ "$#" -gt 0 ]; then
-#     shift
-#   fi
-#
-#   case "$command" in
-#   rehash|shell)
-#     eval "$(rbenv "sh-$command" "$@")";;
-#   *)
-#     command rbenv "$command" "$@";;
-#   esac
-# }
-
-# Nix
-if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-fi
-# End Nix
