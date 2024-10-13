@@ -40,6 +40,12 @@ Install [powerlevel10k](https://github.com/romkatv/powerlevel10k)
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 ```
 
+Install NVM
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+```
+
 Clone this repository
 
 ```bash
