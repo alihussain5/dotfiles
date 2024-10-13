@@ -79,3 +79,17 @@ Setup kitty theme
 ```bash
 kitty +kittens theme kanagawa
 ```
+
+
+## Linux extras
+
+Installing latest neovim on debian
+
+```bash
+sudo apt remove neovim
+sudo apt install python3-launchpadlib -y
+sudo apt install ninja-build gettext cmake unzip curl file
+git clone https://github.com/neovim/neovim
+cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo
+cd build && cpack -G DEB && sudo dpkg -i --force-overwrite  nvim-linux64.deb
+```
