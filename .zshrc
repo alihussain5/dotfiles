@@ -17,6 +17,11 @@ COMPLETION_WAITING_DOTS="true"
 
 # Plugins
 
+
+if [ -f ${HOME}/.zplug/init.zsh ]; then
+  source ${HOME}/.zplug/init.zsh
+fi
+
 zplug "jeffreytse/zsh-vi-mode"
 zplug "plugins/git",   from:oh-my-zsh
 zplug "zsh-users/zsh-autosuggestions"
@@ -76,7 +81,7 @@ export NVM_DIR="$HOME/.nvm"
 
 gitbranches () {
   git for-each-ref --sort='-committerdate:iso8601' --format=' %(committerdate:iso8601)%09%(refname)' refs/heads
-
+}
 
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
 eval "$(direnv hook zsh)"

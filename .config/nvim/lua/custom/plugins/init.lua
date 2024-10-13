@@ -18,7 +18,11 @@ return {
   {
     'j-hui/fidget.nvim',
     opts = {
-      done_ttl = 5, -- How long a message should persist after completion
+      progress = {
+        display = {
+          done_ttl = 5, -- How long a message should persist after completion
+        },
+      },
     },
   },
   {
@@ -58,7 +62,10 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
       options = {
+        theme = 'auto',
         globalstatus = true,
+        component_separators = { left = '|', right = '|' },
+        section_separators = { left = '', right = '' },
       },
     },
   },
@@ -73,5 +80,15 @@ return {
     opts = {
       -- configurations go here
     },
+  },
+  {
+    'goolord/alpha-nvim',
+    dependencies = {
+      'echasnovski/mini.icons',
+      'nvim-lua/plenary.nvim',
+    },
+    config = function()
+      require('alpha').setup(require('alpha.themes.theta').config)
+    end,
   },
 }
