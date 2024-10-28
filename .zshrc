@@ -27,6 +27,8 @@ zplug "plugins/git",   from:oh-my-zsh
 zplug "zsh-users/zsh-autosuggestions"
 zplug "denisidoro/navi", use:"shell/*.zsh", defer:2
 
+zplug load
+
 source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -39,7 +41,6 @@ bindkey '^ ' autosuggest-accept
 
 alias vi=nvim
 alias vim=nvim
-alias tf=terraform
 alias zap='gaa;gc -m "⚡️";gp'
 alias lg='lazygit'
 
@@ -105,3 +106,5 @@ function zvm_after_lazy_keybindings() {
   zvm_bindkey vicmd '^G' _navi_widget
   zvm_bindkey viins '^ ' autosuggest-accept
 }
+
+ZVM_VI_SURROUND_BINDKEY=s-prefix
