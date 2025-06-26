@@ -89,8 +89,8 @@ return {
         -- },
         -- ignore_filetypes = { cpp = true },
         color = {
-          -- todo: figure out dark mode
-          suggestion_color = '#808080',
+          -- TODO: dark mode
+          suggestion_color = '#B3B3B3',
           cterm = 244,
         },
         -- log_level = "info", -- set to "off" to disable logging completely
