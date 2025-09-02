@@ -15,16 +15,16 @@ return {
       }
     end,
   },
-  {
-    'j-hui/fidget.nvim',
-    opts = {
-      progress = {
-        display = {
-          done_ttl = 5, -- How long a message should persist after completion
-        },
-      },
-    },
-  },
+  -- {
+  --   'j-hui/fidget.nvim',
+  --   opts = {
+  --     progress = {
+  --       display = {
+  --         done_ttl = 5, -- How long a message should persist after completion
+  --       },
+  --     },
+  --   },
+  -- },
   {
     'folke/noice.nvim',
     event = 'VeryLazy',
@@ -69,17 +69,39 @@ return {
       },
     },
   },
+  -- {
+  --   'utilyre/barbecue.nvim',
+  --   name = 'barbecue',
+  --   version = '*',
+  --   dependencies = {
+  --     'SmiteshP/nvim-navic',
+  --     'nvim-tree/nvim-web-devicons', -- optional dependency
+  --   },
+  --   opts = {
+  --     -- configurations go here
+  --   },
+  -- },
   {
-    'utilyre/barbecue.nvim',
-    name = 'barbecue',
-    version = '*',
+    'Bekaboo/dropbar.nvim',
     dependencies = {
-      'SmiteshP/nvim-navic',
-      'nvim-tree/nvim-web-devicons', -- optional dependency
+      'nvim-telescope/telescope-fzf-native.nvim',
+      'nvim-tree/nvim-web-devicons',
+      build = 'make',
     },
-    opts = {
-      -- configurations go here
-    },
+    config = function()
+      local dropbar_api = require 'dropbar.api'
+      vim.keymap.set('n', '<Leader>;', dropbar_api.pick, { desc = 'Pick symbols in winbar' })
+      vim.keymap.set('n', '[;', dropbar_api.goto_context_start, { desc = 'Go to start of current context' })
+      vim.keymap.set('n', '];', dropbar_api.select_next_context, { desc = 'Select next context' })
+
+      require('dropbar').setup {
+        icons = {
+          separators = {
+            display = ' > ',
+          },
+        },
+      }
+    end,
   },
   {
     'brenoprata10/nvim-highlight-colors',
@@ -95,5 +117,10 @@ return {
     config = function()
       require('window-picker').setup()
     end,
+  },
+  {
+    'chrisgrieser/nvim-early-retirement',
+    config = true,
+    event = 'VeryLazy',
   },
 }

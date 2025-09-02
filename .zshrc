@@ -27,6 +27,9 @@ zplug "plugins/git",   from:oh-my-zsh
 zplug "zsh-users/zsh-autosuggestions"
 zplug "denisidoro/navi", use:"shell/*.zsh", defer:2
 
+zplug "z-shell/H-S-MW"
+zplug "z-shell/zsh-navigation-tools"
+
 zplug load
 
 source $ZSH/oh-my-zsh.sh
@@ -75,6 +78,10 @@ bindkey "\e[F" end-of-line
 # completion in the middle of a line
 bindkey '^i' expand-or-complete-prefix
 
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm

@@ -78,54 +78,54 @@ local function accept_suggestion(only_one_word)
 end
 
 return {
-  {
-    'supermaven-inc/supermaven-nvim',
-    config = function()
-      require('supermaven-nvim').setup {
-        -- keymaps = {
-        -- accept_suggestion = "<C-l>",
-        -- clear_suggestion = "<CS-]>",
-        -- accept_word = "<C-k>",
-        -- },
-        -- ignore_filetypes = { cpp = true },
-        color = {
-          -- TODO: dark mode
-          suggestion_color = '#B3B3B3',
-          cterm = 244,
-        },
-        -- log_level = "info", -- set to "off" to disable logging completely
-        -- disable_inline_completion = false, -- disables inline completion for use with cmp
-        disable_keymaps = true, -- disables built in keymaps for more manual control
-      }
-
-      vim.keymap.set('i', '<C-y>', function()
-        accept_suggestion(false)
-      end)
-      vim.keymap.set('i', '<C-]>', function()
-        accept_suggestion(true)
-      end)
-    end,
-  },
-
-  {
-    'olimorris/codecompanion.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-treesitter/nvim-treesitter',
-      -- The following are optional:
-      { 'MeanderingProgrammer/render-markdown.nvim', ft = { 'markdown', 'codecompanion' } },
-    },
-    config = function()
-      require('codecompanion').setup {
-        strategies = {
-          chat = {
-            adapter = 'anthropic',
-          },
-          inline = {
-            adapter = 'anthropic',
-          },
-        },
-      }
-    end,
-  },
+  -- {
+  --   'supermaven-inc/supermaven-nvim',
+  --   config = function()
+  --     require('supermaven-nvim').setup {
+  --       -- keymaps = {
+  --       -- accept_suggestion = "<C-l>",
+  --       -- clear_suggestion = "<CS-]>",
+  --       -- accept_word = "<C-k>",
+  --       -- },
+  --       -- ignore_filetypes = { cpp = true },
+  --       -- color = {
+  --       --   -- TODO: dark mode
+  --       --   suggestion_color = '#B3B3B3',
+  --       --   cterm = 244,
+  --       -- },
+  --       -- log_level = "info", -- set to "off" to disable logging completely
+  --       disable_inline_completion = false, -- disables inline completion for use with cmp
+  --       -- disable_keymaps = true, -- disables built in keymaps for more manual control
+  --     }
+  --
+  --     -- vim.keymap.set('i', '<C-y>', function()
+  --     --   accept_suggestion(false)
+  --     -- end)
+  --     -- vim.keymap.set('i', '<C-]>', function()
+  --     --   accept_suggestion(true)
+  --     -- end)
+  --   end,
+  -- },
+  --
+  -- {
+  --   'olimorris/codecompanion.nvim',
+  --   dependencies = {
+  --     'nvim-lua/plenary.nvim',
+  --     'nvim-treesitter/nvim-treesitter',
+  --     -- The following are optional:
+  --     { 'MeanderingProgrammer/render-markdown.nvim', ft = { 'markdown', 'codecompanion' } },
+  --   },
+  --   config = function()
+  --     require('codecompanion').setup {
+  --       strategies = {
+  --         chat = {
+  --           adapter = 'anthropic',
+  --         },
+  --         inline = {
+  --           adapter = 'anthropic',
+  --         },
+  --       },
+  --     }
+  --   end,
+  -- },
 }
