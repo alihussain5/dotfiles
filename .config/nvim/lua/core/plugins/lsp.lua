@@ -171,7 +171,15 @@ return {
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
 
-        vtsls = {},
+        vtsls = {
+          settings = {
+            typescript = {
+              preferences = {
+                importModuleSpecifierPreference = 'non-relative',
+              },
+            },
+          },
+        },
 
         -- Nix LSP
         nil_ls = {},
