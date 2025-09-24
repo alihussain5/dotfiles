@@ -169,17 +169,18 @@ return {
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
+        ts_ls = {},
 
-        vtsls = {
-          settings = {
-            typescript = {
-              preferences = {
-                importModuleSpecifierPreference = 'non-relative',
-              },
-            },
-          },
-        },
+        -- VTSLS is really slow. going back to ts_ls for now
+        -- vtsls = {
+        --   settings = {
+        --     typescript = {
+        --       preferences = {
+        --         importModuleSpecifierPreference = 'non-relative',
+        --       },
+        --     },
+        --   },
+        -- },
 
         -- Nix LSP
         nil_ls = {},
