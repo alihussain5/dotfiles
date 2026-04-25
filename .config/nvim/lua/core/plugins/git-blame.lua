@@ -1,3 +1,1 @@
-return {
-  'f-person/git-blame.nvim',
-}
+-- git-blame.nvim: no setup needed, just loading it is enough

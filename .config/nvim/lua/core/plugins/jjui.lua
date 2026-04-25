@@ -1,12 +1,4 @@
-return {
-  {
-    'julienvincent/hunk.nvim',
-    cmd = { 'DiffEditor' },
-    config = function()
-      require('hunk').setup()
-    end,
-  },
-  {
-    'rafikdraoui/jj-diffconflicts',
-  },
-}
+-- Hunk.nvim (diff editor)
+require('hunk').setup()
+
+-- jj-diffconflicts: no setup needed, just loading it is enough

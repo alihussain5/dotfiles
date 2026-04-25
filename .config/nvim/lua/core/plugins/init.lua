@@ -1,63 +1,45 @@
-return {
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-  { -- Adds git related signs to the gutter, as well as utilities for managing changes
-    'lewis6991/gitsigns.nvim',
-    opts = {
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-    },
+-- vim-sleuth: no setup needed, just loading it is enough
+
+-- Gitsigns
+require('gitsigns').setup {
+  signs = {
+    add = { text = '+' },
+    change = { text = '~' },
+    delete = { text = '_' },
+    topdelete = { text = '‾' },
+    changedelete = { text = '~' },
   },
+}
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'rebelot/kanagawa.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      vim.cmd.colorscheme 'kanagawa-wave'
-
-      -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
-    end,
-    opts = {
-      colors = {
-        theme = {
-          all = {
-            ui = {
-              bg_gutter = 'none',
-            },
-          },
+-- Kanagawa colorscheme (load first)
+require('kanagawa').setup {
+  colors = {
+    theme = {
+      all = {
+        ui = {
+          bg_gutter = 'none',
         },
       },
     },
   },
-  {
-    'f-person/auto-dark-mode.nvim',
-    opts = {
-      set_dark_mode = function()
-        vim.api.nvim_set_option_value('background', 'dark', {})
-      end,
-      set_light_mode = function()
-        vim.api.nvim_set_option_value('background', 'light', {})
-      end,
-      update_interval = 3000,
-      fallback = 'dark',
-    },
-  },
-  -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
-  -- require 'kickstart.plugins.debug',
-  require 'kickstart.plugins.indent_line',
-  require 'kickstart.plugins.lint',
-  require 'kickstart.plugins.autopairs',
-  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
-
-  vim.diagnostic.config { virtual_text = true },
 }
+vim.cmd.colorscheme 'kanagawa-wave'
+vim.cmd.hi 'Comment gui=none'
+
+-- Auto dark mode
+require('auto-dark-mode').setup {
+  set_dark_mode = function()
+    vim.api.nvim_set_option_value('background', 'dark', {})
+  end,
+  set_light_mode = function()
+    vim.api.nvim_set_option_value('background', 'light', {})
+  end,
+  update_interval = 3000,
+  fallback = 'dark',
+}
+
+-- Todo comments
+require('todo-comments').setup { signs = false }
+
+-- Diagnostics
+vim.diagnostic.config { virtual_text = true }

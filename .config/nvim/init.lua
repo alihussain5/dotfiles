@@ -100,53 +100,131 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- [[ Install `lazy.nvim` plugin manager ]]
---    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-  local out = vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
-  if vim.v.shell_error ~= 0 then
-    error('Error cloning lazy.nvim:\n' .. out)
-  end
-end ---@diagnostic disable-next-line: undefined-field
-vim.opt.rtp:prepend(lazypath)
-
--- [[ Configure and install plugins ]]
+-- [[ Install and configure plugins with vim.pack ]]
 --
 --  To check the current status of your plugins, run
---    :Lazy
---
---  You can press `?` in this menu for help. Use `:q` to close the window
+--    :lua vim.print(vim.pack.get())
 --
 --  To update plugins you can run
---    :Lazy update
+--    :lua vim.pack.update()
 --
--- NOTE: Here is where you install your plugins.
-require('lazy').setup({
-  { import = 'custom.plugins' },
-  { import = 'core.plugins' },
-}, {
-  ui = {
-    -- If you are using a Nerd Font: set icons to an empty table which will use the
-    -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
-    icons = vim.g.have_nerd_font and {} or {
-      cmd = '⌘',
-      config = '🛠',
-      event = '📅',
-      ft = '📂',
-      init = '⚙',
-      keys = '🗝',
-      plugin = '🔌',
-      runtime = '💻',
-      require = '🌙',
-      source = '📄',
-      start = '🚀',
-      task = '📌',
-      lazy = '💤 ',
-    },
-  },
+local gh = function(x) return 'https://github.com/' .. x end
+
+-- Build hooks for plugins that need post-install/update steps
+vim.api.nvim_create_autocmd('PackChanged', {
+  callback = function(ev)
+    local name, kind = ev.data.spec.name, ev.data.kind
+    if kind == 'install' or kind == 'update' then
+      if name == 'nvim-treesitter' then
+        vim.cmd('TSUpdate')
+      end
+      if name == 'telescope-fzf-native.nvim' then
+        vim.system({ 'make' }, { cwd = ev.data.path })
+      end
+    end
+  end,
 })
 
--- The line beneath this is called `modeline`. See `:help modeline`
+vim.pack.add({
+  -- Core
+  gh('tpope/vim-sleuth'),
+  gh('lewis6991/gitsigns.nvim'),
+  gh('rebelot/kanagawa.nvim'),
+  gh('f-person/auto-dark-mode.nvim'),
+  gh('folke/todo-comments.nvim'),
+  gh('nvim-lua/plenary.nvim'),
+
+  -- LSP
+  gh('folke/neoconf.nvim'),
+  gh('folke/lazydev.nvim'),
+  gh('neovim/nvim-lspconfig'),
+  gh('Bilal2453/luvit-meta'),
+  gh('mason-org/mason.nvim'),
+  gh('mason-org/mason-lspconfig.nvim'),
+  gh('WhoIsSethDaniel/mason-tool-installer.nvim'),
+
+  -- Completion
+  gh('zbirenbaum/copilot.lua'),
+  { src = gh('saghen/blink.cmp'), version = vim.version.range('1.*') },
+  gh('rafamadriz/friendly-snippets'),
+  gh('fang2hou/blink-copilot'),
+
+  -- Telescope
+  gh('nvim-telescope/telescope.nvim'),
+  gh('nvim-telescope/telescope-fzf-native.nvim'),
+  gh('nvim-telescope/telescope-ui-select.nvim'),
+  gh('nvim-tree/nvim-web-devicons'),
+
+  -- Treesitter
+  gh('nvim-treesitter/nvim-treesitter'),
+  gh('Wansmer/treesj'),
+  gh('nvim-treesitter/nvim-treesitter-context'),
+
+  -- UI / Editor
+  gh('folke/which-key.nvim'),
+  gh('echasnovski/mini.nvim'),
+  gh('stevearc/conform.nvim'),
+  gh('nvim-neo-tree/neo-tree.nvim'),
+  gh('MunifTanjim/nui.nvim'),
+  gh('f-person/git-blame.nvim'),
+  gh('olimorris/codecompanion.nvim'),
+  gh('folke/sidekick.nvim'),
+  gh('julienvincent/hunk.nvim'),
+  gh('rafikdraoui/jj-diffconflicts'),
+  gh('lukas-reineke/indent-blankline.nvim'),
+  gh('mfussenegger/nvim-lint'),
+  gh('windwp/nvim-autopairs'),
+  gh('windwp/nvim-ts-autotag'),
+
+  -- Custom plugins
+  gh('kevinhwang91/nvim-ufo'),
+  gh('kevinhwang91/promise-async'),
+  gh('folke/noice.nvim'),
+  gh('christoomey/vim-tmux-navigator'),
+  gh('nvim-lualine/lualine.nvim'),
+  gh('Bekaboo/dropbar.nvim'),
+  gh('brenoprata10/nvim-highlight-colors'),
+  gh('s1n7ax/nvim-window-picker'),
+  gh('chrisgrieser/nvim-early-retirement'),
+  gh('folke/flash.nvim'),
+  { src = gh('ThePrimeagen/harpoon'), version = 'harpoon2' },
+  gh('pwntester/octo.nvim'),
+  gh('NickvanDyke/opencode.nvim'),
+  gh('folke/snacks.nvim'),
+  gh('nvim-neotest/neotest'),
+  gh('nvim-neotest/nvim-nio'),
+  gh('antoinemadec/FixCursorHold.nvim'),
+  gh('nvim-neotest/neotest-jest'),
+  gh('folke/trouble.nvim'),
+})
+
+-- [[ Load plugin configurations ]]
+-- Order matters: colorscheme first, then foundational plugins, then the rest.
+require('core.plugins')        -- colorscheme, gitsigns base, diagnostics, etc.
+require('core.plugins.lsp')    -- mason + lspconfig (must come before cmp references)
+require('core.plugins.cmp')
+require('core.plugins.telescope')
+require('core.plugins.treesitter')
+require('core.plugins.which-key')
+require('core.plugins.mini')
+require('core.plugins.autoformat')
+require('core.plugins.neo-tree')
+require('core.plugins.git-blame')
+require('core.plugins.code-companion')
+require('core.plugins.sidekick')
+require('core.plugins.jjui')
+
+require('kickstart.plugins.indent_line')
+require('kickstart.plugins.lint')
+require('kickstart.plugins.autopairs')
+require('kickstart.plugins.gitsigns')
+
+require('custom.plugins')       -- ufo, noice, lualine, dropbar, etc.
+require('custom.plugins.flash')
+require('custom.plugins.harpoon')
+require('custom.plugins.octo')
+require('custom.plugins.opencode')
+require('custom.plugins.test')
+require('custom.plugins.trouble')
+
 -- vim: ts=2 sts=2 sw=2 et
