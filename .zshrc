@@ -47,6 +47,10 @@ alias vim=nvim
 alias zap='gaa;gc -m "⚡️";gp'
 alias lg='lazygit'
 
+alias gs='nocorrect gs'
+
+alias gsr='gs rs;gs sr;gs ss;'
+
 bindkey "\e[1~" beginning-of-line
 bindkey "\e[4~" end-of-line
 bindkey "\e[5~" beginning-of-history
@@ -115,3 +119,6 @@ function zvm_after_lazy_keybindings() {
 }
 
 ZVM_VI_SURROUND_BINDKEY=s-prefix
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.config/emacs/bin:$PATH"
+export HOMEBREW_BUNDLE_FILE="$HOME/.config/homebrew/Brewfile"
