@@ -15,6 +15,8 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#666666"
 ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
 
+export XDG_CONFIG_HOME="$HOME/.config"
+
 # Plugins
 
 
@@ -122,3 +124,45 @@ ZVM_VI_SURROUND_BINDKEY=s-prefix
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.config/emacs/bin:$PATH"
 export HOMEBREW_BUNDLE_FILE="$HOME/.config/homebrew/Brewfile"
+
+# Create a Linear issue (team CAS, self-assigned) and a git-spice branch
+# named after the issue (e.g. CAS-5124/my-title), committing currently
+# staged files. Errors out if nothing is staged.
+linbranch() {
+  emulate -L zsh
+  setopt local_options pipefail
+
+  if (( $# == 0 )); then
+    print -u2 "usage: linbranch <title...>"
+    return 2
+  fi
+
+  local title="$*"
+
+  if ! git rev-parse --git-dir > /dev/null 2>&1; then
+    print -u2 "linbranch: not inside a git repository"
+    return 1
+  fi
+
+  if git diff --cached --quiet; then
+    print -u2 "linbranch: no staged changes; stage files with 'git add' first"
+    return 1
+  fi
+
+  local output
+  if ! output=$(linear issue create --no-interactive --team CAS --assignee self --title "$title"); then
+    print -u2 "linbranch: linear issue create failed"
+    print -u2 -- "$output"
+    return 1
+  fi
+  print -- "$output"
+
+  local urls=(${(M)${(f)output}:#https://linear.app/*/issue/*})
+  if (( ${#urls} == 0 )); then
+    print -u2 "linbranch: could not parse Linear issue URL from output"
+    return 1
+  fi
+  local branch=${urls[1]##*/issue/}
+
+  command gs branch create "$branch" -m "$title"
+}
