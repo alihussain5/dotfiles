@@ -1,4 +1,4 @@
-command = direct:fish
+command = shell:if [ -x /opt/homebrew/bin/fish ]; then exec /opt/homebrew/bin/fish; elif [ -x /home/linuxbrew/.linuxbrew/bin/fish ]; then exec /home/linuxbrew/.linuxbrew/bin/fish; elif [ -x /usr/bin/fish ]; then exec /usr/bin/fish; else exec /bin/sh; fi
 font-family = MesloLGS NF
 font-size = 12
 theme = Kanagawa Wave
