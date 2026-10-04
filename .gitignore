@@ -1,0 +1,9 @@
+.pi/agent/auth.json
+.pi/agent/sessions/
+.pi/agent/trust.json
+.pi/agent/mcp-*.json
+.pi/agent/models-store.json
+.pi/agent/fff/
+.pi/agent/npm/
+.pi/agent/bin/
+.agents/.skill-lock.json

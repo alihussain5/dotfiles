@@ -1,0 +1,19 @@
+{
+  "lastChangelogVersion": "0.87.1",
+  "theme": "dark",
+  "hideThinkingBlock": true,
+  "terminal": {
+    "showImages": true,
+    "images": "kitty",
+    "showTerminalProgress": true
+  },
+  "defaultProjectTrust": "never",
+  "defaultProvider": "openrouter",
+  "defaultModel": "openai/gpt-5.6-sol",
+  "packages": [
+    "npm:@ff-labs/pi-fff",
+    "npm:pi-web-access",
+    "npm:pi-mcp-adapter",
+    "npm:pi-image-preview"
+  ]
+}
