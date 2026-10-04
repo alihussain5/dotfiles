@@ -29,7 +29,7 @@ style = "red"
 [git_status]
 format = "$all_status$ahead_behind"
 conflicted = "[~${count} ](red)"
-stashed = "[*${count} ](green)"
+stashed = ""
 deleted = "[!${count} ](yellow)"
 renamed = "[»${count} ](yellow)"
 modified = "[!${count} ](yellow)"
