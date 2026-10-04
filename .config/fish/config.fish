@@ -5,5 +5,9 @@ else if test -x /home/linuxbrew/.linuxbrew/bin/brew
 end
 
 if status is-interactive
+    if functions -q fisher; and not test -e $__fish_config_dir/functions/fisher.fish
+        fisher update
+    end
+
     starship init fish | source
 end
