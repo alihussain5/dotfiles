@@ -8,3 +8,6 @@
 .pi/agent/bin/
 .agents/.skill-lock.json
 .config/kitty/
+.config/fish/fish_variables
+.config/fish/functions/fisher.fish
+.config/fish/completions/fisher.fish
