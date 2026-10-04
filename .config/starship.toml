@@ -73,7 +73,7 @@ style = "blue"
 
 [custom.aws_sso]
 command = "printf '󰸏 AWS ✓'"
-when = '''test -n "$AWS_PROFILE" && test -d "$HOME/.aws/sso/cache" && jq -e 'select((.accessToken // "") != "" and ((.expiresAt | sub("UTC$"; "Z") | sub("\\.[0-9]+Z$"; "Z") | fromdateiso8601) > now)) | true' "$HOME"/.aws/sso/cache/*.json 2>/dev/null | grep -q true'''
+when = '''test -d "$HOME/.aws/sso/cache" && jq -e 'select((.accessToken // "") != "" and ((.expiresAt | sub("UTC$"; "Z") | sub("\\.[0-9]+Z$"; "Z") | fromdateiso8601) > now)) | true' "$HOME"/.aws/sso/cache/*.json 2>/dev/null | grep -q true'''
 format = "[$output]($style)"
 style = "green"
 shell = ["sh"]
