@@ -1,8 +1,7 @@
-tap "homebrew/cask"
-tap "buo/cask-upgrade"
-tap "anomalyco/tap"
+tap "homebrew/cask" if OS.mac?
+tap "buo/cask-upgrade" if OS.mac?
 tap "pulumi/tap"
-brew "mas"
+brew "mas" if OS.mac?
 brew "aircrack-ng"
 brew "difftastic"
 brew "direnv"
@@ -13,9 +12,7 @@ brew "gh"
 brew "git"
 brew "git-lfs"
 brew "git-spice"
-brew "herdr"
 brew "jj"
-brew "jjui"
 brew "node"
 brew "jupyterlab"
 brew "lazygit"
@@ -40,14 +37,13 @@ brew "valkey"
 brew "xan"
 brew "yadm"
 brew "yarn"
-brew "anomalyco/tap/opencode"
 brew "pulumi/tap/pulumi"
-cask "1password-cli"
-cask "caffeine"
-cask "claude-code"
-cask "fx-cast-bridge"
-cask "ghostty"
-cask "libreoffice"
-cask "librewolf"
-cask "neovide-app"
+cask "1password-cli" if OS.mac?
+cask "caffeine" if OS.mac?
+cask "claude-code" if OS.mac?
+cask "fx-cast-bridge" if OS.mac?
+cask "ghostty" if OS.mac?
+cask "libreoffice" if OS.mac?
+cask "librewolf" if OS.mac?
+cask "neovide-app" if OS.mac?
 cargo "cargo-pgrx"

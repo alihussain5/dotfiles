@@ -77,15 +77,27 @@ brew install neovim yadm fzf ripgrep navi gh lazygit tmux
 Ghostty uses the tracked Kanagawa Wave theme from `~/.config/ghostty/config.ghostty`.
 
 
-## Linux extras
+## Linux setup
 
-Installing latest neovim on debian
+Install Homebrew prerequisites on Debian or Ubuntu:
 
 ```bash
-sudo apt remove neovim
-sudo apt install python3-launchpadlib -y
-sudo apt install ninja-build gettext cmake unzip curl file
-git clone https://github.com/neovim/neovim
-cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo
-cd build && cpack -G DEB && sudo dpkg -i --force-overwrite  nvim-linux64.deb
+sudo apt-get update
+sudo apt-get install -y build-essential procps curl file git
 ```
+
+Install Homebrew and load it into the current shell:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+```
+
+Clone the dotfiles and install the cross-platform bundle:
+
+```bash
+yadm clone https://github.com/alihussain5/dotfiles.git
+brew bundle --file="$HOME/.config/homebrew/Brewfile"
+```
+
+macOS-only taps, formulae, and casks are skipped automatically.
