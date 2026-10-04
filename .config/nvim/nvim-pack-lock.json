@@ -186,6 +186,10 @@
       "rev": "b3cdd746a5ca321b6884badefa0ba22c86c3d45e",
       "src": "https://github.com/NickvanDyke/opencode.nvim"
     },
+    "pi.nvim": {
+      "rev": "9b619b4f9fb96fa4dc1a6a7776a651980cd819a0",
+      "src": "https://github.com/pablopunk/pi.nvim"
+    },
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"

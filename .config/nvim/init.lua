@@ -189,7 +189,7 @@ vim.pack.add({
   gh('folke/flash.nvim'),
   { src = gh('ThePrimeagen/harpoon'), version = 'harpoon2' },
   gh('pwntester/octo.nvim'),
-  gh('NickvanDyke/opencode.nvim'),
+  gh('pablopunk/pi.nvim'),
   gh('folke/snacks.nvim'),
   gh('nvim-neotest/neotest'),
   gh('nvim-neotest/nvim-nio'),
@@ -223,7 +223,7 @@ require('custom.plugins')       -- ufo, noice, lualine, dropbar, etc.
 require('custom.plugins.flash')
 require('custom.plugins.harpoon')
 require('custom.plugins.octo')
-require('custom.plugins.opencode')
+require('custom.plugins.pi')
 require('custom.plugins.test')
 require('custom.plugins.trouble')
 
