@@ -43,6 +43,7 @@ brew "pulumi/tap/pulumi"
 cask "1password-cli" if OS.mac?
 cask "caffeine" if OS.mac?
 cask "claude-code" if OS.mac?
+cask "font-meslo-lg-nerd-font" if OS.mac?
 cask "fx-cast-bridge" if OS.mac?
 cask "ghostty" if OS.mac?
 cask "libreoffice" if OS.mac?

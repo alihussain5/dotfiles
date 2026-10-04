@@ -1,81 +1,25 @@
-# Config Instructions
+# Dotfiles
 
-My development environment configuration. Using `Ghostty` + `tmux` + `neovim` + `zsh`
+Cross-platform development environment managed with Homebrew, YADM, Ghostty, tmux, Fish, and Neovim.
 
-## Initial setup
+The account login shell can remain Zsh or another POSIX-compatible shell. Ghostty and tmux launch Fish for interactive terminal sessions.
 
-Install [Homebrew](https://brew.sh/)
+## macOS setup
+
+Install [Homebrew](https://brew.sh/):
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-Install MesloLGS Nerd Font files
-- [MesloLGS NF Regular](https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf)
-- [MesloLGS NF Bold](https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf)
-- [MesloLGS NF Italic](https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf)
-- [MesloLGS NF Bold Italic](https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf)
-
-Install [Ghostty](https://ghostty.org/)
+Bootstrap the Homebrew bundle:
 
 ```bash
-brew install --cask ghostty
+curl -fsSL https://raw.githubusercontent.com/alihussain5/dotfiles/main/.config/homebrew/Brewfile -o /tmp/dotfiles.Brewfile
+brew bundle --file=/tmp/dotfiles.Brewfile
 ```
 
-Install [Oh My Zsh](https://ohmyz.sh/)
-
-```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
-
-Install [Z Plug](https://github.com/zplug/zplug)
-
-```bash
-curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-```
-
-Install [powerlevel10k](https://github.com/romkatv/powerlevel10k)
-
-```bash
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-```
-
-Install NVM
-
-```bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
-```
-
-Clone this repository
-
-```bash
-yadm clone https://github.com/alihussain5/dotfiles.git
-```
-
-Install Tmux plugin manager
-
-```bash
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-```
-
-Restart everything
-
-Install zsh plugins
-
-```bash
-zplug install
-```
-
-In Tmux, press  `~ + I` to install tmux plugins
-
-Install important packages
-
-```bash
-brew install neovim yadm fzf ripgrep navi gh lazygit tmux
-```
-
-Ghostty uses the tracked Kanagawa Wave theme from `~/.config/ghostty/config.ghostty`.
-
+The bundle installs YADM, Ghostty, Fish, Fisher, Starship, tmux, Neovim, the configured MesloLG Nerd Font, and the remaining development tools.
 
 ## Linux setup
 
@@ -93,11 +37,40 @@ Install Homebrew and load it into the current shell:
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 ```
 
-Clone the dotfiles and install the cross-platform bundle:
+Bootstrap the cross-platform Homebrew bundle:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/alihussain5/dotfiles/main/.config/homebrew/Brewfile -o /tmp/dotfiles.Brewfile
+brew bundle --file=/tmp/dotfiles.Brewfile
+```
+
+macOS-only casks are skipped automatically. Install Ghostty through the Linux package provided for your distribution.
+
+## Dotfiles
+
+Clone the YADM repository:
 
 ```bash
 yadm clone https://github.com/alihussain5/dotfiles.git
+```
+
+Apply the tracked bundle after cloning:
+
+```bash
 brew bundle --file="$HOME/.config/homebrew/Brewfile"
 ```
 
-macOS-only taps, formulae, and casks are skipped automatically.
+## tmux plugins
+
+Install TPM and all tracked tmux plugins, including the Dracula theme:
+
+```bash
+test -d "$HOME/.tmux/plugins/tpm" || git clone --depth 1 https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+"$HOME/.tmux/plugins/tpm/bin/install_plugins"
+```
+
+TPM plugins are cloned locally and are not stored in the YADM repository. Run the install command once on each new machine, then start a new tmux session. In an existing session, reload the config with `tmux source-file ~/.tmux.conf`.
+
+## Start
+
+Fully restart Ghostty after the initial setup. Ghostty loads the tracked Kanagawa Wave configuration and launches Fish. New tmux panes and windows also launch Fish.
