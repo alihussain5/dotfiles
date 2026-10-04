@@ -33,6 +33,7 @@ if status is-interactive
     end
 
     starship init fish | source
+    enable_transience
 end
 
 function bind_bang

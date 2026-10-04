@@ -1,0 +1,46 @@
+format = "$directory$git_branch$git_commit$git_state$git_status$character"
+add_newline = false
+
+[directory]
+format = "[$path]($style) "
+repo_root_format = "[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style) "
+style = "cyan"
+repo_root_style = "bold bright-blue"
+read_only = ""
+truncation_length = 3
+truncate_to_repo = false
+
+[git_branch]
+format = "[$branch]($style) "
+style = "green"
+truncation_length = 32
+truncation_symbol = "…"
+
+[git_commit]
+format = "[@$hash]($style) "
+style = "green"
+commit_hash_length = 8
+only_detached = true
+
+[git_state]
+format = "[$state( $progress_current/$progress_total)]($style) "
+style = "red"
+
+[git_status]
+format = "$all_status$ahead_behind"
+conflicted = "[~${count} ](red)"
+stashed = "[*${count} ](green)"
+deleted = "[!${count} ](yellow)"
+renamed = "[»${count} ](yellow)"
+modified = "[!${count} ](yellow)"
+staged = "[+${count} ](yellow)"
+untracked = "[?${count} ](blue)"
+ahead = "[⇡${count} ](green)"
+behind = "[⇣${count} ](green)"
+diverged = "[⇣${behind_count}⇡${ahead_count} ](green)"
+up_to_date = ""
+
+[character]
+format = "$symbol "
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
