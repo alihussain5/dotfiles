@@ -166,3 +166,4 @@ linbranch() {
 
   command gs branch create "$branch" -m "$title"
 }
+alias pi='pi -nc'
