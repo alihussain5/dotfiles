@@ -1,5 +1,5 @@
 format = "$directory$git_branch$git_commit$git_state$git_status$character"
-right_format = "$cmd_duration$direnv$python$nix_shell"
+right_format = "$cmd_duration$direnv$python$nix_shell${custom.aws_sso}"
 add_newline = false
 
 [directory]
@@ -64,11 +64,19 @@ detect_extensions = []
 detect_files = []
 detect_folders = []
 detect_env_vars = ["VIRTUAL_ENV"]
+generic_venv_names = ["venv", ".venv"]
 
 [nix_shell]
 format = "[$symbol$state]($style)"
 symbol = " "
 style = "blue"
+
+[custom.aws_sso]
+command = "printf '󰸏 AWS ✓'"
+when = '''test -n "$AWS_PROFILE" && test -d "$HOME/.aws/sso/cache" && jq -e 'select((.accessToken // "") != "" and ((.expiresAt | sub("UTC$"; "Z") | sub("\\.[0-9]+Z$"; "Z") | fromdateiso8601) > now)) | true' "$HOME"/.aws/sso/cache/*.json 2>/dev/null | grep -q true'''
+format = "[$output]($style)"
+style = "green"
+shell = ["sh"]
 
 [character]
 format = "$symbol "
