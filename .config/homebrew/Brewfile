@@ -1,4 +1,3 @@
-tap "homebrew/cask" if OS.mac?
 tap "buo/cask-upgrade" if OS.mac?
 tap "pulumi/tap"
 brew "mas" if OS.mac?
@@ -49,4 +48,5 @@ cask "ghostty" if OS.mac?
 cask "libreoffice" if OS.mac?
 cask "librewolf" if OS.mac?
 cask "neovide-app" if OS.mac?
+npm "@earendil-works/pi-coding-agent"
 cargo "cargo-pgrx"
