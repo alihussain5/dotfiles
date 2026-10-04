@@ -7,3 +7,4 @@
 .pi/agent/npm/
 .pi/agent/bin/
 .agents/.skill-lock.json
+.config/kitty/

@@ -1,6 +1,6 @@
 # Config Instructions
 
-My development environment configuration. Using `kitty` + `tmux` + `neovim` + `zsh`
+My development environment configuration. Using `Ghostty` + `tmux` + `neovim` + `zsh`
 
 ## Initial setup
 
@@ -16,10 +16,10 @@ Install MesloLGS Nerd Font files
 - [MesloLGS NF Italic](https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf)
 - [MesloLGS NF Bold Italic](https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf)
 
-Install [Kitty](https://sw.kovidgoyal.net/kitty/)
+Install [Ghostty](https://ghostty.org/)
 
 ```bash
-curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+brew install --cask ghostty
 ```
 
 Install [Oh My Zsh](https://ohmyz.sh/)
@@ -74,11 +74,7 @@ Install important packages
 brew install neovim yadm fzf ripgrep navi gh lazygit tmux
 ```
 
-Setup kitty theme
-
-```bash
-kitty +kittens theme kanagawa
-```
+Ghostty uses the tracked Kanagawa Wave theme from `~/.config/ghostty/config.ghostty`.
 
 
 ## Linux extras
