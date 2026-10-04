@@ -1,4 +1,5 @@
 format = "$directory$git_branch$git_commit$git_state$git_status$character"
+right_format = "$cmd_duration$direnv$python$nix_shell"
 add_newline = false
 
 [directory]
@@ -39,6 +40,35 @@ ahead = "[⇡${count} ](green)"
 behind = "[⇣${count} ](green)"
 diverged = "[⇣${behind_count}⇡${ahead_count} ](green)"
 up_to_date = ""
+
+[cmd_duration]
+format = "[$duration]($style) "
+style = "yellow"
+min_time = 3000
+show_milliseconds = false
+
+[direnv]
+format = "[$symbol]($style) "
+symbol = "▼"
+style = "yellow"
+disabled = false
+detect_files = []
+detect_folders = []
+detect_env_vars = ["DIRENV_FILE"]
+
+[python]
+format = "[$symbol$virtualenv]($style) "
+symbol = " "
+style = "cyan"
+detect_extensions = []
+detect_files = []
+detect_folders = []
+detect_env_vars = ["VIRTUAL_ENV"]
+
+[nix_shell]
+format = "[$symbol$state]($style)"
+symbol = " "
+style = "blue"
 
 [character]
 format = "$symbol "
